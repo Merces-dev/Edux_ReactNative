@@ -5,4 +5,4 @@
 #
 #
 ##### Softwares Necessários: Expo,
-##### Bibliotecas Utilizadas: 
+##### Bibliotecas Utilizadas: React, React Native, React Navigation (Tab Navigation)
