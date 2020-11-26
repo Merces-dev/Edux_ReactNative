@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
       borderRadius:5
     },
     
-    Titulo:{color : 'purple',
+    Titulo:{color : '#9200D6',
      fontWeight : 'bold',
       fontStyle : 'oblique',
       fontSize : 27, 
