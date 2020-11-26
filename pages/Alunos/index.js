@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, FlatList } from 'react-native';
 
 const listarAlunos = () => {
     fetch(`http://192.168.7.130:5000/api/alunoturma`)
-        
+
     .then(response => response.json())
     .then(dados => {
         setAlunos(dados)
@@ -23,7 +23,7 @@ function Alunos({ item }) {
   }
 
 export default class App extends React.Component {
-    state = {
+    listaAluno = {
         data:[
          {id: "01", nome:"kailane"},
          {id: "02", nome:"Ana"},
@@ -41,7 +41,7 @@ export default class App extends React.Component {
           <Text>Alunos</Text>
 
         <FlatList
-            data={this.state.data}
+            data={this.listaAluno.data}
             renderItem={({ item }) => <Alunos item={item}/>}
             keyExtractor={(item) => item.id}    
         />
