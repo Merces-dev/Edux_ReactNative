@@ -23,14 +23,12 @@ export default function App() {
                   let iconName;
 
                   if (route.name === 'Início') {
-                    iconName = focused
-                      ? 'school'
-                      : 'school';
+                    iconName = 'school';
                   } else if (route.name === 'Objetivos') {
-                    iconName = focused ? 'graduation-cap' : 'graduation-cap';
+                    iconName =  'graduation-cap';
                   }
                   else if (route.name === 'Turmas') {
-                    iconName = focused ? 'chalkboard-teacher' : 'chalkboard-teacher';
+                    iconName = 'chalkboard-teacher';
                   }
 
                   // You can return any component that you like here!
