@@ -3,21 +3,22 @@ import { Text, View, StyleSheet } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler';
 import Header from '../../components/Header';
 
-import ItemTurma from '../../components/itemTurma';
- 
-const Turma = () => {
+import ItemObjetivo from '../../components/itemObjetivo';
 
-    const[turmas, setTurmas] = useState([]);
+ 
+const Objetivos = () => {
+
+    const[objetivos, setObjetivos] = useState([]);
 
     useEffect(() => {
-        listarTurmas();
+        listarObjetivos();
     }, [])
 
-    const listarTurmas = () => {
-        fetch(`http://192.168.15.9:5000/api/turma`)
+    const listarObjetivos = () => {
+        fetch(`http://192.168.15.9:5000/api/objetivo`)
             .then(response => response.json())
             .then(dados => {
-            setTurmas(dados);
+            setObjetivos(dados);
             console.log(dados);
         })
         .catch(err => console.error(err));
@@ -25,7 +26,7 @@ const Turma = () => {
 
     const renderItem = ({item}) => {
         return(
-            <ItemTurma
+            <ItemObjetivo
                 descricao = {item.descricao}
             />
         )
@@ -33,36 +34,35 @@ const Turma = () => {
 
 
     return(
+
         <View>
             <Header/>
-            <Text style={styles.Titulo}>Turmas</Text>
+            <Text style={styles.Titulo}>Objetivos</Text>
             <FlatList
-                data={turmas}
-                keyExtractor={item=> item.id}
+                data={objetivos} 
                 renderItem={renderItem}
             />
         </View>
     )
-
-    
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#F7F7F7',
-        marginTop:60
-      },
-      listItem:{
-        margin:10,
-        padding:10,
-        backgroundColor:"#FFF",
-        width:"80%",
-        flex:1,
-        alignSelf:"center",
-        flexDirection:"row",
-        borderRadius:5
-      },
+      flex: 1,
+      backgroundColor: '#F7F7F7',
+      marginTop:60
+    },
+    listItem:{
+      margin:10,
+      padding:10,
+      backgroundColor:"#FFF",
+      width:"80%",
+      flex:1,
+      alignSelf:"center",
+      flexDirection:"row",
+      borderRadius:5
+    },
+    
     Titulo:
     {color : 'purple',
      fontWeight : 'bold',
@@ -72,4 +72,4 @@ const styles = StyleSheet.create({
 
   });
 
-export default Turma;
+export default Objetivos;

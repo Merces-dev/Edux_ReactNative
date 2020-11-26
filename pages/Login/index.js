@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 import { AppLoading } from 'expo';
-import Logo from './../../assets/logo.svg'
+import Logo from './../../assets/logo.png'
 import {
   useFonts,
   TitilliumWeb_200ExtraLight,
