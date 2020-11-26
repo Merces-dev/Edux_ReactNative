@@ -3,6 +3,7 @@ import React from 'react';
 //Pages
 import Login from './pages/Login'
 import Turmas from './pages/Turmas'
+import Objetivos from './pages/Objetivos'
 
 
 //Navigation
@@ -50,7 +51,7 @@ export default function App() {
           }>
           <Tab.Screen name="Início" component={Login} />
           <Tab.Screen name="Turmas" component={Turmas} />
-          <Tab.Screen name="Objetivos" component={Turmas} />
+          <Tab.Screen name="Objetivos" component={Objetivos} />
 
         </Tab.Navigator>
       </NavigationContainer>
