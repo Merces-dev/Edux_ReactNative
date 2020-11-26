@@ -1,11 +1,17 @@
-import React from 'react';
+import React,{useEffect, useState}from 'react';
 import Header from './../../components/Header'
-//import Footer from './../../components/Footer'
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 
-const listarAlunos = () => {
-    fetch(`http://192.168.7.130:5000/api/alunoturma`)
+const Alunos = () => {
 
+ const[alunos, setAlunos] = useState([]);
+
+     useEffect(() => {
+         listarAlunos();
+     }, [])
+
+const listarAlunos = () => {
+    fetch(`http://192.168.7.130:5000/api/AlunoTurma`)
     .then(response => response.json())
     .then(dados => {
         setAlunos(dados)
@@ -14,7 +20,7 @@ const listarAlunos = () => {
     .catch(err => console(err));
 }
 
-function Alunos({ item }) {
+const Item = ({ item }) =>{
     return (
       <View style={styles.listaAluno}>
         <Text style={styles.nomeAluno}>{item.nome}</Text>
@@ -22,34 +28,22 @@ function Alunos({ item }) {
     );
   }
 
-export default class App extends React.Component {
-    listaAluno = {
-        data:[
-         {id: "01", nome:"kailane"},
-         {id: "02", nome:"Ana"},
-         {id: "03", nome:"Pedro"},
-         {id: "04", nome:"Henrique"},
-         {id: "05", nome:"Maria"},
-        ]
-      }
-  
-  
-    render(){
+
     return (
       <View style={styles.container}>
           <Header />
-          <Text>Alunos</Text>
+          <Text style={styles.Titulo}>Alunos</Text>
 
-        <FlatList
-            data={this.listaAluno.data}
-            renderItem={({ item }) => <Alunos item={item}/>}
-            keyExtractor={(item) => item.id}    
-        />
-      </View>
-    );
-  }
-}
-
+          <FlatList
+              data={alunos}
+              renderItem={({ item }) => <Item item={item}/>}
+              keyExtractor={(item) => item.id}    
+          />
+        </View>
+      );
+    
+  
+ }
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -65,5 +59,13 @@ const styles = StyleSheet.create({
         alignSelf:"center",
         flexDirection:"row",
         borderRadius:5
-      }
+      },
+      Titulo:{
+        alignSelf:"center",
+        fontSize:"22px",
+        fontFamily:'TitilliumWeb_600SemiBold',
+        marginTop:15,
+        color: "#9100d6"
+      },
 });
+ export default Alunos;
