@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler';
-import Header from '../../components/Header';
 
 import ItemObjetivo from '../../components/itemObjetivo';
 
@@ -34,9 +33,7 @@ const Objetivos = () => {
 
 
     return(
-
         <View>
-            <Header/>
             <Text style={styles.Titulo}>Objetivos</Text>
             <FlatList
                 data={objetivos} 
@@ -63,8 +60,7 @@ const styles = StyleSheet.create({
       borderRadius:5
     },
     
-    Titulo:
-    {color : 'purple',
+    Titulo:{color : '#9200D6',
      fontWeight : 'bold',
       fontSize : 27, 
      alignSelf:"center" 
