@@ -1,6 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler';
+import Header from '../../components/Header';
+
+import { StatusBar } from 'expo-status-bar';
 
 import ItemObjetivo from '../../components/itemObjetivo';
 
@@ -34,11 +37,14 @@ const Objetivos = () => {
 
     return(
         <View>
+                <StatusBar hidden={true}/>
+        <Header/>
             <Text style={styles.Titulo}>Objetivos</Text>
             <FlatList
                 data={objetivos} 
                 renderItem={renderItem}
             />
+
         </View>
     )
 }

@@ -54,6 +54,8 @@ export default function App() {
           <Tab.Screen name="Objetivos" component={Objetivos} />
 
         </Tab.Navigator>
+
       </NavigationContainer>
+
   );
 }

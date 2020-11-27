@@ -1,5 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Text, TextInput, TouchableOpacity, Image } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+
 import { AppLoading } from 'expo';
 import Logo from './../../assets/logo.png'
 import {
@@ -39,6 +41,8 @@ const Login = () => {
 
     return(
         <View style= {styles.container}>
+            <StatusBar style='dark' backgroundColor='#9200D6'/>
+
        <Image
                 style ={styles.image}
                 source ={Logo}
@@ -63,6 +67,7 @@ const Login = () => {
                   Entrar
                 </Text>
               </TouchableOpacity>
+
         </View>
     )
 }

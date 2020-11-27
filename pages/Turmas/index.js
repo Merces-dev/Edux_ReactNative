@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler';
+import { StatusBar } from 'expo-status-bar';
+
 import Header from '../../components/Header';
 
 import ItemTurma from '../../components/itemTurma';
@@ -34,6 +36,8 @@ const Turma = () => {
 
     return(
         <View>
+                <StatusBar hidden={true}/>
+
             <Header/>
             <Text style={styles.Titulo}>Turmas</Text>
             <FlatList
@@ -64,7 +68,7 @@ const styles = StyleSheet.create({
         borderRadius:5
       },
     Titulo:
-    {color : 'purple',
+    {color : '#9200D6',
      fontWeight : 'bold',
       fontSize : 27, 
      alignSelf:"center" 

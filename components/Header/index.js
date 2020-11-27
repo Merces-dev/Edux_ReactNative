@@ -1,7 +1,8 @@
 import React from 'react';
 import {View,  StyleSheet, Image,TouchableOpacity} from 'react-native'
 import {FontAwesome} from '@expo/vector-icons'
-import Logo from './../../assets/logo.svg'
+import Logo from './../../assets/logo.png'
+
 
 
 const Header = () => {
@@ -19,13 +20,12 @@ const Header = () => {
 } 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        width:'100%',
-        maxHeight:50,
+        height: 50,
         backgroundColor: '#9200D6',
         display:'flex',
-        flexDirection: 'row',
+        marginBottom: 20,
         justifyContent:'space-between',
+        flexDirection:'row',
         alignItems:'center',
         padding:20
     },
