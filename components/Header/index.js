@@ -6,13 +6,25 @@ import Logo from './../../assets/logo.png'
 
 
 const Header = () => {
+    const Logout = ({navigation}) =>{
+        return(
+          <View>
+            <Text>Deseja sair do app?</Text>
+            <Button title="Sair" onPress={() => {
+              AsyncStorage.removeItem('@Edux_Token');
+              navigation.push('Login');
+            }} />
+          </View>
+        )
+      }
+      
     return(
         <View style={styles.container}>
             <Image
             style={styles.image}
             source={Logo}
             />
-            <TouchableOpacity>
+            <TouchableOpacity onPress={Logout}>
                 <FontAwesome name="sign-out" size={30} color='#fff'/>
             </TouchableOpacity>
         </View>
