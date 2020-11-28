@@ -1,5 +1,7 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { View, StyleSheet, Text, TextInput, TouchableOpacity, Image } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AppLoading } from 'expo';
 import Logo from './../../assets/logo.png'
 import {
@@ -17,7 +19,13 @@ import {
   TitilliumWeb_900Black,
 } from '@expo-google-fonts/titillium-web';
 
+
+
 const Login = () => {
+
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+
   let [fontsLoaded] = useFonts({
     TitilliumWeb_200ExtraLight,
     TitilliumWeb_200ExtraLight_Italic,
@@ -33,12 +41,48 @@ const Login = () => {
   });
 
 
+  const salvarToken = async (value) => {
+    try {
+      await AsyncStorage.setItem('@Edux_Token', value)
+    } catch (e) {
+      // saving error
+    }
+}
+    const Logar = ({navigation}) =>{
+        const corpo = {
+            email : email,
+            senha : senha
+        }
+        fetch('http://192.168.15.9:5000/api/login',{
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify(corpo)
+        })        
+        .then(response => response())
+        .then(dados => {
+            if(dados.status != 404){
+                alert('Logado com sucesso!');
+                salvarToken(dados.token);
+                navigation.push('Turmas');
+            }else{
+                alert('Dados inválidos')
+            }
+        })
+        .catch(() => alert('Falha na requisição, tente novamente'))
+        
+    }
+
+
   if (!fontsLoaded) {
     return <AppLoading />;
   } else {
 
     return(
         <View style= {styles.container}>
+            <StatusBar style='dark' backgroundColor='#9200D6'/>
+
        <Image
                 style ={styles.image}
                 source ={Logo}
@@ -47,15 +91,22 @@ const Login = () => {
               <TextInput
                 style={styles.input}
                 placeholderTextColor='#9200D6'
+                onChangeText={email => setEmail(email)}
+                value={email}
                 placeholder="Email"
               />
               <TextInput
                 style={styles.input}
                 placeholderTextColor='#9200D6'
+                onChangeText={senha => setSenha(senha)}
+                value={senha}
+                secureTextEntry={true}
+
                 placeholder="Senha"
               />
               <TouchableOpacity
                 style={styles.input}
+                onPress={Logar}
               >
                 <Text
                   style={styles.textButton}
@@ -63,6 +114,7 @@ const Login = () => {
                   Entrar
                 </Text>
               </TouchableOpacity>
+
         </View>
     )
 }

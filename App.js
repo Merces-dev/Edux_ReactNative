@@ -1,7 +1,7 @@
 import React from 'react';
 
 //Pages
-import Login from './pages/Login'
+import Home from './pages/Home'
 import Turmas from './pages/Turmas'
 import Objetivos from './pages/Objetivos'
 
@@ -49,11 +49,13 @@ export default function App() {
                 },
               }        
           }>
-          <Tab.Screen name="Início" component={Login} />
+          <Tab.Screen name="Início" component={Home} />
           <Tab.Screen name="Turmas" component={Turmas} />
           <Tab.Screen name="Objetivos" component={Objetivos} />
 
         </Tab.Navigator>
+
       </NavigationContainer>
+
   );
 }

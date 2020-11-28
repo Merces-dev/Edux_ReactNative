@@ -1,17 +1,30 @@
 import React from 'react';
 import {View,  StyleSheet, Image,TouchableOpacity} from 'react-native'
 import {FontAwesome} from '@expo/vector-icons'
-import Logo from './../../assets/logo.svg'
+import Logo from './../../assets/logo.png'
+
 
 
 const Header = () => {
+    const Logout = ({navigation}) =>{
+        return(
+          <View>
+            <Text>Deseja sair do app?</Text>
+            <Button title="Sair" onPress={() => {
+              AsyncStorage.removeItem('@Edux_Token');
+              navigation.push('Login');
+            }} />
+          </View>
+        )
+      }
+      
     return(
         <View style={styles.container}>
             <Image
             style={styles.image}
             source={Logo}
             />
-            <TouchableOpacity>
+            <TouchableOpacity onPress={Logout}>
                 <FontAwesome name="sign-out" size={30} color='#fff'/>
             </TouchableOpacity>
         </View>
@@ -19,13 +32,12 @@ const Header = () => {
 } 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        width:'100%',
-        maxHeight:50,
+        height: 50,
         backgroundColor: '#9200D6',
         display:'flex',
-        flexDirection: 'row',
+        marginBottom: 20,
         justifyContent:'space-between',
+        flexDirection:'row',
         alignItems:'center',
         padding:20
     },
