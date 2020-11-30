@@ -1,9 +1,11 @@
+
 import React from 'react';
 
 //Pages
 import Home from './pages/Home'
 import Turmas from './pages/Turmas'
 import Objetivos from './pages/Objetivos'
+import Login from './pages/Login'
 
 
 //Navigation
