@@ -1,14 +1,50 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../../components/Header';
-import { View, Text, FlatList, StyleSheet, Image } from 'react-native';
-import UserIcon from './../../assets/usericon.png'
-import { color } from 'react-native-reanimated';
-import { withSafeAreaInsets } from 'react-native-safe-area-context';
+import { View, Text, StyleSheet, Image, Button, Platform } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
+
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 // import ItemHome from '../../components/itemHome';
 
 
-const Home = () => {
+
+const Home = ({navigation}) => {
+
+    //upload de imagem
+    const [image, setImage] = useState(null);
+
+    useEffect(() => {
+        (async () => {
+            if (Platform.OS !== 'web') {
+                const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
+                if (status !== 'granted') {
+                    alert('Sorry, we need camera roll permissions to make this work!');
+                }
+            }
+        })();
+    }, []);
+
+    const pickImage = async () => {
+
+
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+
+        console.log(result);
+
+        if (!result.cancelled) {
+            setImage(result.uri);
+        }
+
+
+
+    };
+
+
 
 
 
@@ -35,18 +71,34 @@ const Home = () => {
     //     )
     // }
 
+   
 
     return (
+
         <View>
 
+
+
             <Header />
+
+
             <Text style={styles.Titulo}>RANKING GERAL</Text>
 
-            <View style={styles.Caixote}>
-                <Image source={UserIcon} style={styles.UserIcon} />
+            {/* upload de imagem */}
+            <View >
+                <Button color="#9200d2" title="Selecione uma imagem de perfil" onPress={pickImage} />
+            </View>
+
+
+            <View style={styles.Caixote} >
+                <View>
+                    {<Image source={{ uri: image }} style={styles.UserIcon} />}
+                </View>
                 <Text style={styles.Usuario}>Paulo Roberto Brandão</Text>
                 <Text style={styles.Turma}>1º - Desenvolvimento de Sistemas</Text>
+
             </View >
+
 
             <View style={styles.BallLine1}>
                 <Text style={styles.NumberRanking}> 1º </Text>
@@ -61,13 +113,13 @@ const Home = () => {
             </View >
 
             <View style={styles.BallLine3}>
-            <Text style={styles.NumberRanking}> 9º </Text>
+                <Text style={styles.NumberRanking}> 9º </Text>
                 <Text style={styles.AllRanking}>10</Text>
                 <Text style={styles.NameRanking}>Segredos Encontrados</Text>
             </View >
 
             <View style={styles.BallLine4}>
-            <Text style={styles.NumberRanking}> 4º </Text>
+                <Text style={styles.NumberRanking}> 4º </Text>
                 <Text style={styles.AllRanking}>34</Text>
                 <Text style={styles.NameRanking}>Notas Máximas</Text>
             </View >
@@ -79,8 +131,11 @@ const Home = () => {
     )
 
 
+
 }
 
+
+//stylesheet
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -108,15 +163,16 @@ const styles = StyleSheet.create({
         color: 'black',
         textAlign: "center",
         marginTop: -70,
-        marginLeft: 50,
+        marginLeft: 56,
         color: '#fff',
         fontSize: 15,
         fontWeight: "bold",
     },
     UserIcon: {
-        height: 100,
+        height: 96,
         width: 100,
-        borderRadius: 83,
+        shadowRadius: 10,
+        borderRadius: 80,
         zIndex: 1
     },
     Turma: {
@@ -124,7 +180,7 @@ const styles = StyleSheet.create({
         // position: 'absolute',
         color: 'black',
         zIndex: 1,
-        marginLeft: 50,
+        marginLeft: 60,
         marginBottom: 30,
         display: 'flex',
         color: '#fff',
@@ -177,7 +233,7 @@ const styles = StyleSheet.create({
         position: 'relative',
         marginLeft: 30,
         bottom: 2,
-     
+
     },
     BallLine3: {
         backgroundColor: '#F9E800',
@@ -186,8 +242,12 @@ const styles = StyleSheet.create({
         height: 130,
         display: 'flex',
         position: 'absolute',
-        marginTop: 421,
+        marginTop: 461,
         marginLeft: 250,
+    },
+    BotaoFoto: {
+        width: 100,
+        color: 'purple'
     },
     BallLine4: {
         backgroundColor: '#FF271C',
@@ -202,7 +262,3 @@ const styles = StyleSheet.create({
 });
 
 export default Home;
-
-
-
-
