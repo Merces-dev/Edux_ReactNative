@@ -44,7 +44,6 @@ const Objetivos = () => {
                 data={objetivos} 
                 renderItem={renderItem}
             />
-
         </View>
     )
 }
