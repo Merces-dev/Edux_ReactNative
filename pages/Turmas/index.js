@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler';
-import { StatusBar } from 'expo-status-bar';
-
 import Header from '../../components/Header';
 
 import ItemTurma from '../../components/itemTurma';
@@ -36,21 +34,15 @@ const Turma = () => {
 
     return(
         <View>
-                <StatusBar hidden={true}/>
-
             <Header/>
             <Text style={styles.Titulo}>Turmas</Text>
             <FlatList
                 data={turmas}
-                keyExtractor={item=> item.id}
                 renderItem={renderItem}
             />
         </View>
     )
-
-    
 }
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,

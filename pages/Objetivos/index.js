@@ -5,7 +5,7 @@ import Header from '../../components/Header';
 
 import { StatusBar } from 'expo-status-bar';
 
-import ItemObjetivo from '../../components/itemObjetivo';
+import ItemObjetivo from '../../components/ItemObjetivo';
 
  
 const Objetivos = () => {
@@ -17,7 +17,7 @@ const Objetivos = () => {
     }, [])
 
     const listarObjetivos = () => {
-        fetch(`http://192.168.0.13:5000/api/objetivo`)
+        fetch('http://192.168.15.9:5000/api/objetivo')
             .then(response => response.json())
             .then(dados => {
             setObjetivos(dados);

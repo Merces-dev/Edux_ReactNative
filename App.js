@@ -7,6 +7,7 @@ import Turmas from './pages/Turmas'
 import Objetivos from './pages/Objetivos'
 import Login from './pages/Login'
 import Postagem from './pages/Postagem'
+import Alunos from './pages/Alunos'
 
 //Navigation
 import { NavigationContainer } from '@react-navigation/native';
@@ -93,6 +94,7 @@ export default function App({ navigation }) {
         <Drawer.Screen name="Login" component={Login} options={{ headerShown: false, drawerLabel: Hidden }} />
         <Drawer.Screen name="BottomTabNavigator" component={BottomTabNavigator} options={{ drawerLabel: "Home" }} />
         <Drawer.Screen name="Timeline" component={Postagem} options={{ drawerLabel: "Timeline" }} />
+        <Drawer.Screen name="Alunos" component={Alunos} options={{ drawerLabel: "Alunos" }} />
 
 
       </Drawer.Navigator>
