@@ -16,7 +16,7 @@ const Turma = () => {
     }, [])
 
     const listarTurmas = () => {
-        fetch(`http://192.168.0.13:5000/api/turma`)
+        fetch(`http://192.168.15.9:5000/api/turma`)
             .then(response => response.json())
             .then(dados => {
             setTurmas(dados);

@@ -17,7 +17,7 @@ const Objetivos = () => {
     }, [])
 
     const listarObjetivos = () => {
-        fetch(`http://192.168.0.13:5000/api/objetivo`)
+        fetch(`http://192.168.15.9:5000/api/objetivo`)
             .then(response => response.json())
             .then(dados => {
             setObjetivos(dados);
