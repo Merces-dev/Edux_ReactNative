@@ -11,7 +11,7 @@ const Header = () => {
           <View>
             <Text>Deseja sair do app?</Text>
             <Button title="Sair" onPress={() => {
-              AsyncStorage.removeItem('@Edux_Token');
+              AsyncStorage.removeItem('@jwt');
               navigation.push('Login');
             }} />
           </View>
