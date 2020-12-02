@@ -1,19 +1,56 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../../components/Header';
-import { View, Text, FlatList, StyleSheet, Image } from 'react-native';
-import UserIcon from './../../assets/usericon.png'
-import { color } from 'react-native-reanimated';
+import { View, Text, StyleSheet, Image, Button, Platform } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
+
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 // import ItemHome from '../../components/itemHome';
 
 
-const Home = () => {
+
+const Home = ({navigation}) => {
+
+    //upload de imagem
+    const [image, setImage] = useState(null);
+
+    useEffect(() => {
+        (async () => {
+            if (Platform.OS !== 'web') {
+                const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
+                if (status !== 'granted') {
+                    alert('Sorry, we need camera roll permissions to make this work!');
+                }
+            }
+        })();
+    }, []);
+
+    const pickImage = async () => {
+
+
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+
+        console.log(result);
+
+        if (!result.cancelled) {
+            setImage(result.uri);
+        }
 
 
 
-    // useEffect(() => {
-    //     listarUsuario();
-    // }, [])
+    };
+
+
+
+
+
+    //  useEffect(() => {
+    //      listarUsuario();
+    //  }, [])
 
     // const listarUsuario = () => {
     //     fetch(`http://192.168.15.9:5000/api/usuario`)
@@ -25,11 +62,6 @@ const Home = () => {
     //     .catch(err => console.error(err));
     // }
 
-    // returnToken = async () => {
-    //     let tokenFindStorage = await AsyncStorage.getItem('token-edux');
-    //     this.setState({ nome: jwt(tokenFindStorage).nome })
-    //     this.setState({ turma: jwt(tokenFindStorage).email })
-    // }
 
     // const renderItem = ({item}) => {
     //     return(
@@ -39,39 +71,57 @@ const Home = () => {
     //     )
     // }
 
+   
 
     return (
+
         <View>
 
+
+
             <Header />
+
+
             <Text style={styles.Titulo}>RANKING GERAL</Text>
-             
-           
-            {/* <FlatList
-                data={usuarios}
-                renderItem={renderItem}
-            /> */}
-        <View style={styles.Caixote}>
-            <Image source={UserIcon} style={styles.UserIcon} />
-            <Text style={styles.Usuario}>Paulo Roberto Brandão</Text>
-            <Text style={styles.Turma}>1º - Desenvolvimento de Sistemas</Text>
-        </View >
 
-        <View style={styles.BallLine1}>
-        <Text> Este é o breu Olá breu
-        Este é o breu Olá breu      
-        Este é o breu Olá breu
-        Este é o breu Olá breu
+            {/* upload de imagem */}
+            <View >
+                <Button color="#9200d2" title="Selecione uma imagem de perfil" onPress={pickImage} />
+            </View>
 
-        </Text>
-            
-        </View >
 
-        <View style={styles.BallLine2}>
-            
-        </View >
-        <View style={styles.BallLine3}>
-            
+            <View style={styles.Caixote} >
+                <View>
+                    {<Image source={{ uri: image }} style={styles.UserIcon} />}
+                </View>
+                <Text style={styles.Usuario}>Paulo Roberto Brandão</Text>
+                <Text style={styles.Turma}>1º - Desenvolvimento de Sistemas</Text>
+
+            </View >
+
+
+            <View style={styles.BallLine1}>
+                <Text style={styles.NumberRanking}> 1º </Text>
+                <Text style={styles.AllRanking}>40</Text>
+                <Text style={styles.NameRanking}>Objetivos Concluídos</Text>
+            </View >
+
+            <View style={styles.BallLine2}>
+                <Text style={styles.NumberRanking}> 4º </Text>
+                <Text style={styles.AllRanking}>234</Text>
+                <Text style={styles.NameRanking}>Posts Curtidos</Text>
+            </View >
+
+            <View style={styles.BallLine3}>
+                <Text style={styles.NumberRanking}> 9º </Text>
+                <Text style={styles.AllRanking}>10</Text>
+                <Text style={styles.NameRanking}>Segredos Encontrados</Text>
+            </View >
+
+            <View style={styles.BallLine4}>
+                <Text style={styles.NumberRanking}> 4º </Text>
+                <Text style={styles.AllRanking}>34</Text>
+                <Text style={styles.NameRanking}>Notas Máximas</Text>
             </View >
 
 
@@ -81,8 +131,11 @@ const Home = () => {
     )
 
 
+
 }
 
+
+//stylesheet
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -109,23 +162,17 @@ const styles = StyleSheet.create({
     Usuario: {
         color: 'black',
         textAlign: "center",
-        marginTop:-70,
-        marginLeft: 50,
+        marginTop: -70,
+        marginLeft: 56,
         color: '#fff',
         fontSize: 15,
         fontWeight: "bold",
-        // left: 45,
-        // right: 50,
-        // top: 147,
-
-        // // backgroundColor: '#9200D6',
-        // borderRadius: 83,
-        // display: "flex",
     },
-    UserIcon: {        
-        height: 100,
+    UserIcon: {
+        height: 96,
         width: 100,
-        borderRadius: 83,
+        shadowRadius: 10,
+        borderRadius: 80,
         zIndex: 1
     },
     Turma: {
@@ -133,37 +180,85 @@ const styles = StyleSheet.create({
         // position: 'absolute',
         color: 'black',
         zIndex: 1,
-        marginLeft: 50,
+        marginLeft: 60,
         marginBottom: 30,
-        display:'flex',
+        display: 'flex',
         color: '#fff',
         fontSize: 11,
     },
-    Caixote:{
+    Caixote: {
         marginTop: 40,
         marginLeft: 45,
         height: 96,
-        width:320,
+        width: 320,
         backgroundColor: '#9200d2',
         borderRadius: 83,
     },
-    View:{
+    View: {
         margin: 0,
-        padding:0
+        padding: 0
     },
-    BallLine1:{
+    NumberRanking: {
+        color: 'white',
+        fontSize: 40,
+        marginLeft: 40,
+        marginTop: 10,
+        fontWeight: "bold",
+    },
+    NameRanking: {
+        marginLeft: 20,
+        marginRight: 20,
+        color: 'white',
+        textAlign: 'center',
+        fontSize: 12,
+    },
+    AllRanking: {
+        marginLeft: 55,
+        color: 'white',
+    },
+    BallLine1: {
         backgroundColor: '#00D65F',
         borderRadius: 83,
         width: 130,
         height: 130,
-        marginLeft: 135,
-        marginTop: 100,
-        textAlign: 'center'
+        marginTop: 50,
+        textAlign: 'center',
+        alignSelf: 'center',
+    },
+    BallLine2: {
+        backgroundColor: '#00C2EE',
+        borderRadius: 83,
+        width: 130,
+        height: 130,
+        position: 'relative',
+        marginLeft: 30,
+        bottom: 2,
+
+    },
+    BallLine3: {
+        backgroundColor: '#F9E800',
+        borderRadius: 83,
+        width: 130,
+        height: 130,
+        display: 'flex',
+        position: 'absolute',
+        marginTop: 461,
+        marginLeft: 250,
+    },
+    BotaoFoto: {
+        width: 100,
+        color: 'purple'
+    },
+    BallLine4: {
+        backgroundColor: '#FF271C',
+        borderRadius: 83,
+        width: 130,
+        height: 130,
+        marginTop: -10,
+        textAlign: 'center',
+        alignSelf: 'center',
+
     }
 });
 
 export default Home;
-
-
-
-
