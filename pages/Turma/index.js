@@ -34,8 +34,9 @@ const Turma = () => {
 
     return (
         <View>
-            <Header/>
+            <Header />
             <Text style={styles.Titulo}>Turmas</Text>
+            <Text>Teste</Text>
             <FlatList
                 data={turmas}
                 renderItem={renderItem}

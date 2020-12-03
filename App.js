@@ -3,7 +3,7 @@ import React from 'react';
 
 //Pages
 import Home from './pages/Home'
-import Turmas from './pages/Turmas'
+import Turmas from './pages/Turma'
 import Objetivos from './pages/Objetivos'
 import Login from './pages/Login'
 import Postagem from './pages/Postagem'
