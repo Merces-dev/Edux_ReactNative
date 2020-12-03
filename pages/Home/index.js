@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../../components/Header';
 import jwt_decode from 'jwt-decode'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View, Text, StyleSheet, Image, Button, Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
@@ -11,7 +12,7 @@ import * as ImagePicker from 'expo-image-picker';
 
 const Home = ({navigation}) => {
 
-    const token = await AsyncStorage.getItem('@jwt')
+    // const token =  AsyncStorage.getItem('@jwt')
     //upload de imagem
     const [image, setImage] = useState(null);
 
@@ -96,7 +97,7 @@ const Home = ({navigation}) => {
                 <View>
                     {<Image source={{ uri: image }} style={styles.UserIcon} />}
                 </View>
-                <Text style={styles.Usuario}>{jwt_decode(token).family_name}</Text>
+                {/* <Text style={styles.Usuario}>{jwt_decode(token).family_name}</Text> */}
                 <Text style={styles.Turma}>1º - Desenvolvimento de Sistemas</Text>
 
             </View >
