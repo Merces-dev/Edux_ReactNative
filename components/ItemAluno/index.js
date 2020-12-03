@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
 
   });
 
-const ItemAluno = (aluno) => {
-    const {nome} = aluno;
+const ItemAluno = (usuario) => {
+    const {nome} = usuario;
 
     return (
         <View style={styles.listItem}>

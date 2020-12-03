@@ -8,6 +8,7 @@ import Objetivos from './pages/Objetivos'
 import Login from './pages/Login'
 import Postagem from './pages/Postagem'
 import Alunos from './pages/Alunos'
+//import Logout from './components/Header'
 
 //Navigation
 import { NavigationContainer } from '@react-navigation/native';
@@ -74,23 +75,7 @@ const BottomTabNavigator = () => {
 export default function App({ navigation }) {
   return (
     <NavigationContainer>
-      <Drawer.Navigator screenOptions={{
-        headerShown: false,
-        headerRight: () => (
-          <View>
-            <TouchableOpacity
-              onPress={() => {
-                AsyncStorage.removeItem('@jwt');
-                navigation.push('Login');
-              }}
-              style={{ marginRight: 20 }}
-              underlayColor={"#8404D9"}
-            >
-              <MaterialCommunityIcons name="logout" color={"white"} size={30} />
-            </TouchableOpacity>
-          </View>
-        )
-      }}>
+      <Drawer.Navigator>     
         <Drawer.Screen name="Login" component={Login} options={{ headerShown: false, drawerLabel: Hidden }} />
         <Drawer.Screen name="BottomTabNavigator" component={BottomTabNavigator} options={{ drawerLabel: "Home" }} />
         <Drawer.Screen name="Timeline" component={Postagem} options={{ drawerLabel: "Timeline" }} />

@@ -72,7 +72,7 @@ const Login = ({ navigation }) => {
           salvar(data.token);
           navigation.navigate('BottomTabNavigator');
         } else {
-          alert('Email ou senha inválidos! :( ');
+          alert('Email ou senha inválidos');
         }
       })
 
