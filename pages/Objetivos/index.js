@@ -8,7 +8,7 @@ import { StatusBar } from 'expo-status-bar';
 import ItemObjetivo from '../../components/ItemObjetivo';
 
  
-const Objetivos = () => {
+const Objetivos = ({navigation}) => {
 
     const[objetivos, setObjetivos] = useState([]);
 
@@ -38,7 +38,7 @@ const Objetivos = () => {
     return(
         <View>
                 <StatusBar hidden={true}/>
-        <Header/>
+                <Header navigation={navigation}/>
             <Text style={styles.Titulo}>Objetivos</Text>
             <FlatList
                 data={objetivos} 

@@ -2,7 +2,7 @@ import React,{useEffect, useState}from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import Header from '../../components/Header';
 
-const Alunos = () => {
+const Alunos = ({navigation}) => {
 
  const[alunos, setAlunos] = useState([]);
 
@@ -23,7 +23,7 @@ const listarAlunos = () => {
 
     return (
       <View >
-        <Header/>
+         <Header navigation={navigation}/>
           <Text style={styles.Titulo}>Alunos</Text>
 
           <FlatList

@@ -67,8 +67,7 @@ const Login = ({ navigation }) => {
       .then(response => response.json())
       .then(data => {
         console.log(data);
-        if (data.status != 404) {
-
+        if (data.token !== undefined ) {
           salvar(data.token);
           navigation.navigate('BottomTabNavigator');
         } else {

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../../components/Header';
 import jwt_decode from 'jwt-decode'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View, Text, StyleSheet, Image, Button, Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -9,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
-const Home = ({ navigation }) => {
+const Home = () => {
 
    // const token = async (value) => await AsyncStorage.getItem('@jwt')
     //upload de imagem
@@ -73,15 +72,13 @@ const Home = ({ navigation }) => {
     //     )
     // }
 
-
-
     return (
 
         <View>
 
 
 
-            <Header />
+            <Header/>
 
 
             <Text style={styles.Titulo}>RANKING GERAL</Text>
@@ -103,26 +100,26 @@ const Home = ({ navigation }) => {
 
 
             <View style={styles.BallLine1}>
-                <Text style={styles.NumberRanking}> 1º </Text>
-                <Text style={styles.AllRanking}>40</Text>
+                <Text style={styles.NumberRanking}> 4º </Text>
+                <Text style={styles.AllRanking}>10</Text>
                 <Text style={styles.NameRanking}>Objetivos Concluídos</Text>
             </View >
 
             <View style={styles.BallLine2}>
-                <Text style={styles.NumberRanking}> 4º </Text>
-                <Text style={styles.AllRanking}>234</Text>
+                <Text style={styles.NumberRanking}> 8º </Text>
+                <Text style={styles.AllRanking}>100</Text>
                 <Text style={styles.NameRanking}>Posts Curtidos</Text>
             </View >
 
             <View style={styles.BallLine3}>
-                <Text style={styles.NumberRanking}> 9º </Text>
-                <Text style={styles.AllRanking}>10</Text>
+                <Text style={styles.NumberRanking}> 3º </Text>
+                <Text style={styles.AllRanking}>15</Text>
                 <Text style={styles.NameRanking}>Segredos Encontrados</Text>
             </View >
 
             <View style={styles.BallLine4}>
-                <Text style={styles.NumberRanking}> 4º </Text>
-                <Text style={styles.AllRanking}>34</Text>
+                <Text style={styles.NumberRanking}> 1º </Text>
+                <Text style={styles.AllRanking}>50</Text>
                 <Text style={styles.NameRanking}>Notas Máximas</Text>
             </View >
 
@@ -264,3 +261,4 @@ const styles = StyleSheet.create({
 });
 
 export default Home;
+

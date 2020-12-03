@@ -8,7 +8,7 @@ import Objetivos from './pages/Objetivos'
 import Login from './pages/Login'
 import Postagem from './pages/Postagem'
 import Alunos from './pages/Alunos'
-//import Logout from './components/Header'
+
 
 //Navigation
 import { NavigationContainer } from '@react-navigation/native';
