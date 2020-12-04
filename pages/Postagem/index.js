@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react'
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler';
@@ -6,121 +7,107 @@ import { StatusBar } from 'expo-status-bar';
 import jwt_decode from "jwt-decode";
 import * as ImagePicker from 'expo-image-picker';
 import ItemPost from '../../components/ItemPost'
-import url from '../../utils/constants'
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
+let url = 'http://192.168.15.9:5000/api'
 
 const Postagem = () => {
-
   const [idDica, setIdDica] = useState(0);
   const [texto, setTexto] = useState('');
-  const [urlImagem, setUrlImagem] = useState('');
-  const [image, setImage] = useState(null);
   const [dicas, setDicas] = useState([]);
+  const [urlImagem, setUrlImagem] = useState('');
 
-  
-  
- 
 
-  //Selecionar imagem
-  const pickImage = async () => {
-    (async () => {
-      if (Platform.OS !== 'web') {
-        const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
-        if (status !== 'granted') {
-          alert('Sorry, we need camera roll permissions to make this work!');
-        }
-      }
-    })();
-
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    console.log(result);
-
-    if (!result.cancelled) {
-      setImage(result.uri);
-      console.log(result.uri)
-    }
-  };
-
-  //Listar Dicas
   useEffect(() => {
-    listarDicas();
-
+    listarDicas()
   }, []);
 
-  //Chamada Dicas
+  //listando dicas
   const listarDicas = () => {
+
     fetch('http://192.168.15.9:5000/api/dica')
       .then(response => response.json())
-      .then(data => {
-        setDicas(data)
+      .then(dados => {
+        setDicas(dados.data);
         limparCampos();
+
       })
       .catch(err => console.error(err));
   }
 
-  //Limpar Campos
-  const limparCampos = () => {
-    setIdDica(0);
-    setTexto('');
-    setImage(null);
-    
+  const uploadFile = (event) => {
+
+    let formdata = new FormData();
+    formdata.append('arquivo', event.target.files[0]);
+
+    fetch(`${url}/upload`,
+      {
+        method: 'POST',
+        body: formdata
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        setUrlImagem(data.url);
+      })
+      .catch(err => console.error(err))
   }
 
-  //Salvar Dica
-  const salvar = (event) => {
-    event.preventDefault();
+  const dica = {
+    idDica: idDica,
+    urlImagem: urlImagem,
+    texto: texto,
+  }
 
-    if (texto === "") {
-      return (
-        alert("Digite algo")
-      )
-    }
-    else {
-      const dica = {
+
+
+  const salvar = (dica) => {
+
+    let method = (idDica === 0 ? 'POST' : 'PUT');
+    let urlRequest = (idDica === 0 ? url + '/dica' : url + '/dica/' + idDica);
+
+
+    fetch(urlRequest, {
+      method: method,
+      body: JSON.stringify({
+        idDica: idDica,
+        urlImagem: urlImagem,
         texto: texto,
-        urlImagem: image,
-        idDica: idDica
+      }),
+      headers: {
+        'content-type': 'application/json',
       }
+    })
+      .then(response => {
+        if (response.ok) {
+          console.log(response.json());
 
-      let method = (idDica === 0 ? 'POST' : 'PUT');
-      let urlRequest = (idDica === 0 ? `${url}` : `${url}/${idDica}`);
-
-      fetch(urlRequest, {
-        method: method,
-        body: JSON.stringify(dica),
-        headers: {
-          'content-type': 'application/json'
-
+          alert('Dica cadastrada com sucesso!');
         }
       })
-        .then(response => response.json())
-        .then(dados => {
-          alert('Dica publicada!');
-
-          limparCampos();
-        })
-        .catch(err => console.error(err))
-    }
-
   }
 
-  const renderItem = ({ item }) => (
-    <ItemPost texto={item.texto} imagem={item.urlImagem} data={item.data} id={item.id}/>
-  );
+  const limparCampos = () => {
+    setIdDica(0);
+    setUrlImagem('');
+    setTexto('');
+  }
 
+  const renderItem = ({item}) => {
+    return(
+        <ItemPost
+            texto = {item.texto}
+            urlImagem = {item.urlImagem}
+        />
+    )
+}
 
   return (
     <View  >
+
       <StatusBar hidden={true} />
 
       <Header />
+
       <Text style={styles.Titulo}>Postagens</Text>
 
       <TextInput
@@ -129,34 +116,36 @@ const Postagem = () => {
         numberOfLines={4}
         placeholder='Qual sua dica para hoje?'
         maxLength={255}
-        onChangeText={text => setTexto(text)}
+        onChange={event => setTexto(event.target.value)}
       />
+
       <View style={styles.buttons}>
+
         <TouchableOpacity
           style={styles.buttonUnityGray}
-          onPress={pickImage}
-
+          onChange={event => uploadFile(event)}
         >
+          {/* {urlImagem && <img src={urlImagem}  />} */}
           <Text style={styles.buttonText}>Escolher Imagem</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.buttonUnityGreen}
           onPress={salvar}
         >
           <Text style={styles.buttonText}>Postar</Text>
         </TouchableOpacity>
+
       </View>
 
-      <View style={{ backgroundColor: 'white', justifyContent: "center", alignItems: 'center', }}>
-        {image && <Image source={{ uri: image }} style={{ width: 200, height: 200, margin: 15, borderRadius: 3 }} />}
-      </View>
+
+      
 
       <FlatList
         data={dicas}
         renderItem={renderItem}
-        keyExtractor={item => item.id}
-        style={{ backgroundColor: 'white' }}
       />
+
     </View>
 
 
@@ -173,6 +162,7 @@ const styles = StyleSheet.create({
 
   },
   listItem: {
+    
     margin: 10,
     padding: 10,
     backgroundColor: "#FFF",
@@ -236,3 +226,6 @@ const styles = StyleSheet.create({
 })
 
 export default Postagem
+
+
+
